@@ -6,6 +6,10 @@ import './App.css';
 function App() {
     const axios = require('axios').default;
 
+    const api = axios.create({
+        baseURL: '/Users'
+    })
+
     const [message, setMessage] = React.useState("");
 
   return (
@@ -13,11 +17,17 @@ function App() {
           <div>
               <Button color="primary" variant="contained"
                   onClick={() => {
-                      axios.get('/user')
-                          .then(function (response: string) {
-                              console.log(response);
-                              setMessage(response);
+                      axios.get('/Users')
+                          .then((response: any) => {
+                              console.log(response.data);
+                              setMessage(response.data);
                           })
+                          .catch(function (error: any) {
+                              console.log(error);
+                          })
+                          .then(function () {
+                              console.log("End of Axios");
+                          });
                   }
               }>
                 REST
