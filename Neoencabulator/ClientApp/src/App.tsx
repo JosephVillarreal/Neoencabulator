@@ -11,9 +11,11 @@ function App() {
     })
 
     const [message, setMessage] = React.useState("Whom");
-    const [weather, setWeather] = React.useState();
+  const [weather, setWeather] = React.useState<weatherArray>();
 
   /*
+ This is an array of objects, where each object is a string, number, number, string.
+ 
   https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-6.0&tabs=visual-studio
  
   (5) [{…}, {…}, {…}, {…}, {…}]
@@ -30,9 +32,22 @@ function App() {
   length: 5
   [[Prototype]]: Array(0)
   */
-  const weatherText = {
-    var text = "";
-    weather.forEach( weatherObject => text = ...text + weatherObject.temperatureC )
+
+// This is what I want
+// https://stackoverflow.com/questions/22885995/how-do-i-initialize-a-typescript-object-with-a-json-object
+
+// I lied before, this is the way.
+// https://stackoverflow.com/questions/38688822/how-to-parse-json-string-in-typescript
+
+  interface weatherForcast {
+    date: string;
+    tempC: number;
+    tempF: number;
+    summary: string;
+  }
+
+  interface weatherArray {
+    forcast: weatherForcast[];
   }
 
   return (
@@ -65,7 +80,8 @@ function App() {
             axios.get('/WeatherForecast')
               .then((response: any) => {
                 console.log(response.data);
-                setWeather(response.data);
+                let obj: weatherArray = JSON.parse(response.data);
+                setWeather(obj);
               })
               .catch(function (error: any) {
                 console.log(error);
@@ -78,7 +94,7 @@ function App() {
           Get Weather
         </Button>
         <div>
-          weatherText
+          {weather?.forcast?.[0]?.summary ?? "Not yet assigned"}
         </div>
       </div>
     </div>
