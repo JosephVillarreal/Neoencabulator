@@ -18,11 +18,18 @@ namespace Neoencabulator.Controllers
             _logger = logger;
         }
 
+        private string Name;
+
+        [HttpPost]
+        public void Set(string input)
+        {
+            Name = input;
+        }
+
         [HttpGet]
         public string Get()
         {
-            var returnValue = "Joe V was here";
-            return returnValue;
+            return Name;
         }
     }
 }
