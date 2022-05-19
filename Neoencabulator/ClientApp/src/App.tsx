@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 
 function App() {
-    const axios = require('axios').default;
+    const axios = require('axios');
 
     const api = axios.create({
         baseURL: '/Users'
@@ -39,9 +39,7 @@ function App() {
         <Button color="primary" variant="contained"
             onClick={() => {
                 console.log("Submitted to Axios: ", name);
-                axios.post('/Users', {
-                    input: name
-                })
+              axios.post('/Users', { input: name })
                     .then((response: any) => {
                         console.log(response);
                     })

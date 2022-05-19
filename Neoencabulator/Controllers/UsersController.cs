@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Neoencabulator.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,9 @@ namespace Neoencabulator.Controllers
         private string Name;
 
         [HttpPost]
-        public void Set(string input)
+        public void PostNewName(restPostType input)
         {
-            Name = input;
+          RestDataStorage.name = input.name;
         }
 
         [HttpGet]
@@ -32,4 +33,9 @@ namespace Neoencabulator.Controllers
             return Name;
         }
     }
+
+  public class restPostType
+  {
+    public string name { get; set; }
+  }
 }
