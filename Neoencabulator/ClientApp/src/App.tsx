@@ -39,7 +39,7 @@ function App() {
         <Button color="primary" variant="contained"
             onClick={() => {
                 console.log("Submitted to Axios: ", name);
-              axios.post('/Users', { input: name })
+              axios.post('/Users', { name: name })
                     .then((response: any) => {
                         console.log(response);
                     })

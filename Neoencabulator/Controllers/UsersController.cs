@@ -19,8 +19,6 @@ namespace Neoencabulator.Controllers
             _logger = logger;
         }
 
-        private string Name;
-
         [HttpPost]
         public void PostNewName(restPostType input)
         {
@@ -30,12 +28,13 @@ namespace Neoencabulator.Controllers
         [HttpGet]
         public string Get()
         {
-            return Name;
+            return RestDataStorage.name;
         }
     }
 
   public class restPostType
   {
+    // The structure in this type, must match the POST request object's body EXACTLY. Including names.
     public string name { get; set; }
   }
 }
