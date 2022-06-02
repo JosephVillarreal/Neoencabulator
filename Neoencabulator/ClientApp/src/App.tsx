@@ -1,93 +1,54 @@
-import './App.css';
-import axios from 'axios';
+import { styled } from '@mui/material/styles';
 import React, { useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import WelcomeWorkspace from './workspaces/WelcomeWorkspace'
+import LinkedListWorkspace from './workspaces/LinkedListWorkspace'
+import { Button } from '@mui/material';
+
+
+const MyComponent = styled('div')({
+
+});
 
 function App() {
-    const axios = require('axios');
 
-    const api = axios.create({
-        baseURL: '/Users'
-    })
-
-  const [name, setName] = React.useState("");
-  const [message, setMessage] = React.useState("Whom?");
-
-  const [weather, setWeather] = React.useState<weatherForcast[]>();
-  interface weatherForcast {
-    date: string;
-    tempC: number;
-    tempF: number;
-    summary: string;
+  enum workspace {
+    welcome,
+    linkedList
   }
+  const [currentWorkspace, setCurrentWorkspace] = useState<workspace>(workspace.welcome);
 
   return (
     <div className="App">
-      <div>
-        <h1>
-          Neo Encabulator
-        </h1>
-      </div>
-      <div>
-        <TextField
-          label="John Doe"
-          variant="filled"
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-        />
-        <Button color="primary" variant="contained"
-            onClick={() => {
-                console.log("Submitted to Axios: ", name);
-              axios.post('/Users', { name: name })
-                    .then((response: any) => {
-                        console.log(response);
-                    })
-                    .catch(function (error: any) {
-                        console.log(error);
-                    })
-                    .then(function () {
-                        console.log("End of Axios Post");
-                    });
-            }
-            }>Submit Name
-        </Button>
-        <Button color="primary" variant="contained"
+      <div id="titleBar">
+        <Button
+          id="titleBar-button"
+          color="primary"
+          variant="text"
           onClick={() => {
-            axios.get('/Users')
-              .then((response: any) => {
-                console.log(response.data);
-                setMessage(response.data);
-              })
-              .catch(function (error: any) {
-                console.log(error);
-              })
-              .then(function () {
-                console.log("End of Axios Get");
-              });
+            console.log("Changed to workspace: welcome");
+            setCurrentWorkspace(workspace.welcome);
           }
-        }>
-          {message ?? "#NAME?"}
+          }>
+          Neo Encabulator
         </Button>
-        <Button color="primary" variant="contained"
-          onClick={() => {
-            axios.get('/WeatherForecast')
-              .then((response: any) => {
-                console.log(response.data);
-                setWeather(response.data);
-              })
-              .catch(function (error: any) {
-                console.log(error);
-              })
-              .then(function () {
-                console.log("End of Axios");
-              });
-          }}
-        >
-          Get Weather
-        </Button>
-        <div>
-          {weather?.[0]?.summary ?? "Not yet assigned"}
+      </div>
+      <div id="mainBody">
+        <div id="leftNavBar">
+          <Button
+            id="linkedList-workspace-button"
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              console.log("Changed to workspace: linkedList");
+              setCurrentWorkspace(workspace.linkedList);
+            }
+            }>
+            Linked List
+          </Button>
+        </div>
+        <div id="workspace">
+          {currentWorkspace === workspace.welcome && WelcomeWorkspace() }
+          {currentWorkspace === workspace.linkedList && LinkedListWorkspace() }
         </div>
       </div>
     </div>
