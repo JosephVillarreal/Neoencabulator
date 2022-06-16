@@ -1,15 +1,31 @@
-import { styled } from '@mui/material/styles';
 import React, { useState } from 'react';
 import WelcomeWorkspace from './workspaces/WelcomeWorkspace'
 import LinkedListWorkspace from './workspaces/LinkedListWorkspace'
 import { Button } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
-
-const MyComponent = styled('div')({
-
+const useStyles = makeStyles({
+  titleBar: {
+    height: '100px'
+  },
+  contentBody: {
+    display: 'flex',
+    height: '100%'
+  },
+  navigationBar: {
+    height: '100%',
+    width: '100px',
+    padding: '5px'
+  },
+  workspaceContent: {
+    width: '100%',
+    height: '100%',
+    padding: '5px'
+  }
 });
 
 function App() {
+  const classes = useStyles();
 
   enum workspace {
     welcome,
@@ -18,8 +34,8 @@ function App() {
   const [currentWorkspace, setCurrentWorkspace] = useState<workspace>(workspace.welcome);
 
   return (
-    <div className="App">
-      <div id="titleBar">
+    <div>
+      <div id="titleBar" className={classes.titleBar}>
         <Button
           id="titleBar-button"
           color="primary"
@@ -32,8 +48,8 @@ function App() {
           Neo Encabulator
         </Button>
       </div>
-      <div id="mainBody">
-        <div id="leftNavBar">
+      <div id="mainBody" className={classes.contentBody}>
+        <div id="leftNavBar" className={classes.navigationBar}>
           <Button
             id="linkedList-workspace-button"
             color="primary"
@@ -46,7 +62,7 @@ function App() {
             Linked List
           </Button>
         </div>
-        <div id="workspace">
+        <div id="workspace" className={classes.workspaceContent}>
           {currentWorkspace === workspace.welcome && WelcomeWorkspace() }
           {currentWorkspace === workspace.linkedList && LinkedListWorkspace() }
         </div>
