@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\topLevelStyles.tsx" />
     <None Remove="ClientApp\src\workspaces\linkedListWorkspace.tsx" />
     <None Remove="ClientApp\src\workspaces\WelcomeWorkspace.tsx" />
   </ItemGroup>

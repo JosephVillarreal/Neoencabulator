@@ -2,36 +2,26 @@ import React, { useState } from 'react';
 import WelcomeWorkspace from './workspaces/WelcomeWorkspace'
 import LinkedListWorkspace from './workspaces/LinkedListWorkspace'
 import { Button } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-
-const useStyles = makeStyles({
-  titleBar: {
-    height: '100px'
-  },
-  contentBody: {
-    display: 'flex',
-    height: '100%'
-  },
-  navigationBar: {
-    height: '100%',
-    width: '100px',
-    padding: '5px'
-  },
-  workspaceContent: {
-    width: '100%',
-    height: '100%',
-    padding: '5px'
-  }
-});
+import useStyles from './topLevelStyles'
 
 function App() {
-  const classes = useStyles();
+   const classes = useStyles();
 
   enum workspace {
     welcome,
     linkedList
   }
   const [currentWorkspace, setCurrentWorkspace] = useState<workspace>(workspace.welcome);
+    function getCurrentWorkspace() {
+        switch (currentWorkspace) {
+            case workspace.linkedList:
+                return LinkedListWorkspace();
+                break;
+            default:
+                return WelcomeWorkspace();
+                break;
+        }
+    }
 
   return (
     <div>
@@ -63,12 +53,10 @@ function App() {
           </Button>
         </div>
         <div id="workspace" className={classes.workspaceContent}>
-          {currentWorkspace === workspace.welcome && WelcomeWorkspace() }
-          {currentWorkspace === workspace.linkedList && LinkedListWorkspace() }
+          {getCurrentWorkspace()}
         </div>
       </div>
     </div>
-  );
+    );
 }
-
 export default App;
