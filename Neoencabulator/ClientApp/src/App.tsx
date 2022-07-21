@@ -2,7 +2,28 @@ import React, { useState } from 'react';
 import WelcomeWorkspace from './workspaces/WelcomeWorkspace'
 import LinkedListWorkspace from './workspaces/LinkedListWorkspace'
 import { Button } from '@mui/material';
-import useStyles from './topLevelStyles'
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  titleBar: {
+    height: '100px',
+    width: '100%'
+  },
+  contentBody: {
+    display: 'flex',
+    height: '100%'
+  },
+  navigationBar: {
+    height: '100%',
+    width: '100px',
+    padding: '5px'
+  },
+  workspaceContent: {
+    width: '100%',
+    height: '100%',
+    padding: '5px'
+  }
+});
 
 function App() {
    const classes = useStyles();
@@ -13,14 +34,12 @@ function App() {
   }
   const [currentWorkspace, setCurrentWorkspace] = useState<workspace>(workspace.welcome);
     function getCurrentWorkspace() {
-        switch (currentWorkspace) {
-            case workspace.linkedList:
-                return LinkedListWorkspace();
-                break;
-            default:
-                return WelcomeWorkspace();
-                break;
-        }
+      switch (currentWorkspace) {
+        case workspace.linkedList:
+          return LinkedListWorkspace();
+        default:
+          return WelcomeWorkspace();
+      }
     }
 
   return (
