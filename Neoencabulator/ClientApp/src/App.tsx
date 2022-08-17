@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
-  titleBar: {
+  titleBarButton: {
     height: '100px',
     width: '100%'
   },
@@ -22,6 +22,10 @@ const useStyles = makeStyles({
     width: '100%',
     height: '100%',
     padding: '5px'
+  },
+  standardSizedButton: {
+    width: '100px',
+    height: '50px'
   }
 });
 
@@ -33,20 +37,21 @@ function App() {
     linkedList
   }
   const [currentWorkspace, setCurrentWorkspace] = useState<workspace>(workspace.welcome);
-    function getCurrentWorkspace() {
-      switch (currentWorkspace) {
-        case workspace.linkedList:
-          return LinkedListWorkspace();
-        default:
-          return WelcomeWorkspace();
-      }
+  function getCurrentWorkspace() {
+    switch (currentWorkspace) {
+      case workspace.linkedList:
+        return <LinkedListWorkspace/>
+      default:
+        return <WelcomeWorkspace/>
     }
+  }
 
   return (
     <div>
-      <div id="titleBar" className={classes.titleBar}>
+      <div id="titleBar">
         <Button
           id="titleBar-button"
+          className={classes.titleBarButton}
           color="primary"
           variant="text"
           onClick={() => {
@@ -61,6 +66,7 @@ function App() {
         <div id="leftNavBar" className={classes.navigationBar}>
           <Button
             id="linkedList-workspace-button"
+            className={classes.standardSizedButton}
             color="primary"
             variant="contained"
             onClick={() => {
