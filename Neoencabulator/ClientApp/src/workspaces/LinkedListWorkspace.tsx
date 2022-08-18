@@ -3,6 +3,18 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 
+/*
+ * In this file, what I would like to do is:
+ * Have a text form, and a button next to it that submits its value to the backend, while also clearing the value.
+ * Have a button that when pressed, fetches a list of all the things submitted to the backend.
+ * Foreach thing in the backend, write it out on screen with a button next to it to delete it.
+ * 
+ * Have the text box button's text be context sensitive. It starts out saying "Insert at front of list"
+ * Let the user select from the list of things written on the screen, an item and an adjcent item.
+ * When they are selected, change the insert's button to read something like "Insert between selected"
+ * Have a button to "clear selection"
+ */
+
 function LinkedListWorkspace() {
 
     const axios = require('axios');
@@ -22,7 +34,6 @@ function LinkedListWorkspace() {
     tempF: number;
     summary: string;
   }
-
 
   return (
     <div>
