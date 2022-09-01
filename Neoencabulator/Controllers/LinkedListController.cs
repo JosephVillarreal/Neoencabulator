@@ -18,9 +18,9 @@ namespace Neoencabulator.Controllers
     [Route("[controller]")]
     public class LinkedListController : ControllerBase
     {
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<LinkedListController> _logger;
 
-        public LinkedListController(ILogger<WeatherForecastController> logger)
+        public LinkedListController(ILogger<LinkedListController> logger)
         {
             _logger = logger;
         }
