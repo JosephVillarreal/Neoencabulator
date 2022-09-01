@@ -15,6 +15,49 @@ import { Button, TextField } from '@mui/material';
  * Have a button to "clear selection"
  */
 
+function AddToLinkedList(input: string) {
+    console.log("Added via Axios: ", input);
+    axios.post('LinkedList/add', { item: input })
+        .then((response: any) => {
+            console.log(response);
+        })
+        .catch(function (error: any) {
+            console.log(error);
+        })
+        .then(function () {
+            console.log("End of Axios Post");
+        });
+}
+
+function RemoveFromLinkedList(input: string) {
+    console.log("Removed via Axios: ", input);
+    axios.post('LinkedList/remove', { item: input })
+        .then((response: any) => {
+            console.log(response);
+        })
+        .catch(function (error: any) {
+            console.log(error);
+        })
+        .then(function () {
+            console.log("End of Axios Post");
+        });
+}
+
+function GetLinkedList(assignResult: Function) {
+    console.log("Got LinkedList via Axios");
+    axios.get('LinkedList')
+        .then((response: any) => {
+            console.log(response);
+            assignResult(response);
+        })
+        .catch(function (error: any) {
+            console.log(error);
+        })
+        .then(function () {
+            console.log("End of Axios Post");
+        });
+}
+
 function LinkedListWorkspace() {
 
     const axios = require('axios');
@@ -27,13 +70,7 @@ function LinkedListWorkspace() {
   const [message, setMessage] = useState("Whom?");
 
 
-  const [weather, setWeather] = React.useState<weatherForcast[]>();
-  interface weatherForcast {
-    date: string;
-    tempC: number;
-    tempF: number;
-    summary: string;
-  }
+  const [weather, setWeather] = React.useState<string[]>();
 
   return (
     <div>
@@ -46,17 +83,7 @@ function LinkedListWorkspace() {
         />
         <Button color="primary" variant="contained"
             onClick={() => {
-                console.log("Submitted to Axios: ", name);
-              axios.post('/Users', { name: name })
-                    .then((response: any) => {
-                        console.log(response);
-                    })
-                    .catch(function (error: any) {
-                        console.log(error);
-                    })
-                    .then(function () {
-                        console.log("End of Axios Post");
-                    });
+                AddToLinkedList(name);
             }
             }>Submit Name
         </Button>
@@ -79,23 +106,13 @@ function LinkedListWorkspace() {
         </Button>
         <Button color="primary" variant="contained"
           onClick={() => {
-            axios.get('/WeatherForecast')
-              .then((response: any) => {
-                console.log(response.data);
-                setWeather(response.data);
-              })
-              .catch(function (error: any) {
-                console.log(error);
-              })
-              .then(function () {
-                console.log("End of Axios");
-              });
+              GetLinkedList(setWeather);
           }}
         >
           Get Weather
         </Button>
         <div>
-          {weather?.[0]?.summary ?? "Not yet assigned"}
+          {weather ?? "Not yet assigned"}
       </div>
     </div>
   );
