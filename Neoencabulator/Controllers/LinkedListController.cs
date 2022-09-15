@@ -12,6 +12,7 @@ namespace Neoencabulator.Controllers
     {
         // The structure in this type, must match the POST request object's body EXACTLY. Including names.
         public string item { get; set; }
+        public Guid id { get; set; }
     }
 
     [ApiController]
@@ -25,10 +26,16 @@ namespace Neoencabulator.Controllers
             _logger = logger;
         }
 
-        [HttpPost("add")]
+        [HttpPost("append")]
         public void AddItem(LinkedListPoco post)
         {
             LinkedListLogic.addNode(post.item);
+        }
+
+        [HttpPost("insert")]
+        public void InsertItem(LinkedListPoco toInsert, LinkedListPoco beforeLocation)
+        {
+            LinkedListLogic.insertNode(toInsert.item, beforeLocation.item);
         }
 
         [HttpPost("remove")]
