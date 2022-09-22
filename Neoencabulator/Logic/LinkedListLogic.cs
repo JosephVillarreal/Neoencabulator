@@ -8,7 +8,7 @@ namespace Neoencabulator.Logic
     {
         public LinkedListNode()
         {
-            id = new Guid();
+            id = Guid.NewGuid();
             content = "";
             previous = null;
             next = null;
@@ -33,12 +33,17 @@ namespace Neoencabulator.Logic
         {
             try
             {
+                // Add the new node to the end of the list
                 names.Add(new LinkedListNode
                 {
                     content = name,
                     previous = names.LastOrDefault()
-                }
-                );
+                });
+                // If the list already had a node in it, fill out its 'next' pointer.
+                if(names.LastOrDefault().previous != null)
+                {
+                    names.LastOrDefault().previous.next = names.LastOrDefault();
+                };
             }
             catch(System.Exception)
             {

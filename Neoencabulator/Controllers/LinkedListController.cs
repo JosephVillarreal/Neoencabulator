@@ -35,20 +35,20 @@ namespace Neoencabulator.Controllers
         [HttpPost("insert")]
         public void InsertItem(LinkedListPoco toInsert, LinkedListPoco beforeLocation)
         {
-            LinkedListLogic.insertNode(toInsert.item, beforeLocation.item);
+            //LinkedListLogic.insertNode(toInsert.item, beforeLocation.item);
         }
 
         [HttpPost("remove")]
         public void RemoveName(LinkedListPoco post)
         {
-            LinkedListLogic.removeNode(post.item);
+            //LinkedListLogic.removeNode(post.item);
         }
 
         [HttpGet]
-        public List<string> Get()
+        public /*List<string>*/ void Get()
         {
             //return new List<string> { "Works." };
-            return LinkedListLogic.getList();
+            //return LinkedListLogic.getList();
         }
     }
 }
