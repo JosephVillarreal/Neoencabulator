@@ -22,6 +22,7 @@ namespace Tests.LinkedListTests
             LinkedListLogic.getList().Clear();
         }
 
+        /*
         [Test]
         public void AddSingleItem()
         {
@@ -49,5 +50,19 @@ namespace Tests.LinkedListTests
             LinkedListLogic.addNode("FindMe");
             Assert.Contains("FindMe", testObject.Get());
         }
+        */
+        // New tests to add:
+        /*
+         * add to an empty list  // AddSingleItem
+         * add to an a list that already has an item
+         * 
+         * insert at the head of the list
+         * insert at an interior node in the list
+         * 
+         * remove from a list with only one item    // RemoveSingleItem
+         * remove the head from a list with only two items
+         * remove the tail from a list with only two items
+         * remove an interior node
+         */
     }
 }

@@ -1,12 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Neoencabulator.Logic
 {
+    public class LinkedListNode
+    {
+        public LinkedListNode()
+        {
+            id = Guid.NewGuid();
+            content = "";
+            previous = null;
+            next = null;
+        }
+
+        public Guid id;
+        public string content;
+        public LinkedListNode previous;
+        public LinkedListNode next;
+    }
+
     public static class LinkedListLogic
     {
-        private static List<string> names = new List<string>();
+        private static List<LinkedListNode> names = new List<LinkedListNode>();
 
-        public static List<string> getList()
+        public static List<LinkedListNode> getList()
         {
             return names;
         }
@@ -14,8 +32,18 @@ namespace Neoencabulator.Logic
         public static bool addNode(string name)
         {
             try
-            { // Is add even capable of throwing?
-                names.Add(name);
+            {
+                // Add the new node to the end of the list
+                names.Add(new LinkedListNode
+                {
+                    content = name,
+                    previous = names.LastOrDefault()
+                });
+                // If the list already had a node in it, fill out its 'next' pointer.
+                if(names.LastOrDefault().previous != null)
+                {
+                    names.LastOrDefault().previous.next = names.LastOrDefault();
+                };
             }
             catch(System.Exception)
             {
@@ -25,9 +53,74 @@ namespace Neoencabulator.Logic
             return true;
         }
 
-        public static bool removeNode(string name)
+        public static bool insertNode(string name, Guid location)
         {
-            return names.Remove(name);
+            try
+            {
+                // A - C
+                // A.next = C
+                // C.previous = A
+
+                // Insert B between A and C
+                // A - B - C
+
+                // B.previous = A
+                // B.next = C
+                // A.next = B, A could be null if C was the only item in the list.
+                // C.previous = B
+
+                var intermediary = names.Select((node, index) => new { node, index });
+                var C = intermediary.FirstOrDefault(q => q.node.id == location);
+                var A = C.node.previous;
+
+                // B.previous = A
+                // B.next = C
+                var B = new LinkedListNode
+                {
+                    content = name,
+                    previous = A,
+                    next = C.node
+                };
+                // A.next = B, A could be null if C was the only item in the list.
+                if(A != null)
+                {
+                    A.next = B;
+                }
+
+                // C.previous = B
+                C.node.previous = B;
+
+                names.Insert(C.index, B);
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool removeNode(Guid guid)
+        {
+            var B = names.FirstOrDefault(node => node.id == guid);
+            var A = B.previous;
+            var C = B.next;
+
+            // A - B - C
+            // Removing B
+            // A.next = C
+            // C.previous = A
+
+            if (A != null)
+            {
+                A.next = C;
+            }
+            if (C != null)
+            {
+                C.previous = A;
+            }
+
+            return names.Remove(B);
         }
     }
 }
