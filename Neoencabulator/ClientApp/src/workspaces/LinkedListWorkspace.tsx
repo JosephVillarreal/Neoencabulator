@@ -17,7 +17,21 @@ import { Button, TextField } from '@mui/material';
 
 function AddToLinkedList(input: string) {
     console.log("Added via Axios: ", input);
-    axios.post('LinkedList/add', { item: input })
+    axios.post('LinkedList/append', { item: input })
+        .then((response: any) => {
+            console.log(response);
+        })
+        .catch(function (error: any) {
+            console.log(error);
+        })
+        .then(function () {
+            console.log("End of Axios Post");
+        });
+}
+
+function InsertToLinkedList(input: string) {
+    console.log("Added via Axios: ", input);
+    axios.post('LinkedList/insert', { item: input })
         .then((response: any) => {
             console.log(response);
         })
@@ -69,8 +83,7 @@ function LinkedListWorkspace() {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("Whom?");
 
-
-  const [weather, setWeather] = React.useState<string[]>();
+  const [linkedList, setLinkedList] = 
 
   return (
     <div>
@@ -104,16 +117,6 @@ function LinkedListWorkspace() {
         }>
           {message ?? "#NAME?"}
         </Button>
-        <Button color="primary" variant="contained"
-          onClick={() => {
-              GetLinkedList(setWeather);
-          }}
-        >
-          Get Weather
-        </Button>
-        <div>
-          {weather ?? "Not yet assigned"}
-      </div>
     </div>
   );
 }

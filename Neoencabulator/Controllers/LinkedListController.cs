@@ -17,8 +17,8 @@ namespace Neoencabulator.Controllers
 
     public class LinkedListInsertPayload
     {
-        public LinkedListPoco toInsert { get; set; }
-        public LinkedListPoco beforeLocation { get; set; }
+        public string toInsert { get; set; }
+        public Guid beforeLocation { get; set; }
     }
 
     [ApiController]
@@ -41,7 +41,7 @@ namespace Neoencabulator.Controllers
         [HttpPost("insert")]
         public void InsertItem(LinkedListInsertPayload payload) // Controller POST methods can only have a single input. See: https://stackoverflow.com/questions/6627300/post-multiple-parameters-to-mvc-controller-using-c-sharp
         { 
-            LinkedListLogic.insertNode(payload.toInsert.item, payload.beforeLocation.id);
+            LinkedListLogic.insertNode(payload.toInsert, payload.beforeLocation);
         }
 
         [HttpPost("remove")]
