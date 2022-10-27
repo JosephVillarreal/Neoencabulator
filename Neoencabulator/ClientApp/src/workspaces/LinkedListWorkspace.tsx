@@ -1,7 +1,7 @@
 ﻿
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 
 /*
  * In this file, what I would like to do is:
@@ -72,17 +72,52 @@ function GetLinkedList(assignResult: Function) {
         });
 }
 
+
+interface NodeSectionProps {
+  id: string
+  item: string
+}
+function NodeSection(Props : NodeSectionProps) {
+  const [name, setName] = useState("");
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+
+  return (
+    <>
+      <TextField value={name} onChange={handleChange}>
+      </TextField>
+      <Button color="primary" variant="contained"
+        onClick={() => {
+          // We need to fix how our insert Axios call works. It needs two inputs.
+          InsertToLinkedList(name);
+        }}
+      >
+        +
+      </Button>
+      <br/>
+      <Typography>
+        {
+          Props.item
+        }
+      </Typography>
+      <Button color="primary" variant="contained"
+        onClick={() => {
+          RemoveFromLinkedList(Props.id);
+        }}
+      >
+        -
+      </Button>
+    </>
+  )
+}
+
 function LinkedListWorkspace() {
-
-    const axios = require('axios');
-
-    const api = axios.create({
-        baseURL: '/Users'
-    })
-
   const [linkedList, setLinkedList] = useState<{ id: string, item: string }[]>([]);
   const [name, setName] = useState("");
-  const [message, setMessage] = useState("Whom?");
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
 
   useEffect(() => {
     GetLinkedList(setLinkedList) 
@@ -90,87 +125,24 @@ function LinkedListWorkspace() {
 
   return (
     <div>
-      <TextField defaultValue="Enter name to insert">
-      </TextField>
-      <Button color="primary" variant="contained"
-        onClick={() => {
-          AddToLinkedList(name);
-        }
-        }
-      >
-        +
-      </Button>
+      <div>
       {
-        // <>
-        //    {
-        //      arrayOfObjects.map(({ coffee, size }) => (
-        //        <p key={coffee}>Coffee type {coffee} in a {size} size.</p>
-        //      ))
-        //    }
-        // </>
         linkedList.map(object => (
-          <div>
-            {
-              //Swap TextField out for Typography
-            }
-            <TextField disabled defaultValue={object.item}>
-            </TextField>
-            <Button color="primary" variant="contained"
-              onClick={() => {
-                RemoveFromLinkedList(name);
-              }}
-            >
-              -
-            </Button>
-            <br />
-            <TextField defaultValue="Enter name to insert">
-            </TextField>
-            <Button color="primary" variant="contained"
-              onClick={() => {
-                AddToLinkedList(name);
-              }}
-            >
-              +
-            </Button>
-          </div>
+          NodeSection(object)
         ))
       }
-      {
-        /*
-        <TextField
-        label="John Doe"
-        variant="filled"
-        onChange={(e) => {
-          setName(e.target.value);
-        }}
-      />
-      <Button color="primary" variant="contained"
-        onClick={() => {
-          AddToLinkedList(name);
-        }
-      }>
-        Submit Name
-      </Button>
-      <Button color="primary" variant="contained"
-        onClick={() => {
-          axios.get('/Users')
-            .then((response: any) => {
-            console.log(response.data);
-            setMessage(response.data);
-            })
-            .catch(function (error: any) {
-            console.log(error);
-            })
-            .then(function () {
-            console.log("End of Axios Get");
-            });
-        }
-      }>
-        {message ?? "#NAME?"}
-      </Button>
-         */
-      }
-      
+      </div>
+      <div>
+        <TextField value={name} onChange={handleChange}>
+        </TextField>
+        <Button color="primary" variant="contained"
+          onClick={() => {
+            AddToLinkedList(name);
+          }}
+        >
+          +
+        </Button>
+      </div>
     </div>
   );
 }
