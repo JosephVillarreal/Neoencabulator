@@ -1,6 +1,6 @@
 ﻿
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, TextField } from '@mui/material';
 
 /*
@@ -62,7 +62,7 @@ function GetLinkedList(assignResult: Function) {
     axios.get('LinkedList')
         .then((response: any) => {
             console.log(response);
-            assignResult(response);
+            assignResult(response.data);
         })
         .catch(function (error: any) {
             console.log(error);
@@ -80,12 +80,64 @@ function LinkedListWorkspace() {
         baseURL: '/Users'
     })
 
+  const [linkedList, setLinkedList] = useState<{ id: string, item: string }[]>([]);
   const [name, setName] = useState("");
   const [message, setMessage] = useState("Whom?");
 
+  useEffect(() => {
+    GetLinkedList(setLinkedList) 
+  }, [linkedList]);
+
   return (
     <div>
-      <TextField
+      <TextField defaultValue="Enter name to insert">
+      </TextField>
+      <Button color="primary" variant="contained"
+        onClick={() => {
+          AddToLinkedList(name);
+        }
+        }
+      >
+        +
+      </Button>
+      {
+        // <>
+        //    {
+        //      arrayOfObjects.map(({ coffee, size }) => (
+        //        <p key={coffee}>Coffee type {coffee} in a {size} size.</p>
+        //      ))
+        //    }
+        // </>
+        linkedList.map(object => (
+          <div>
+            {
+              //Swap TextField out for Typography
+            }
+            <TextField disabled defaultValue={object.item}>
+            </TextField>
+            <Button color="primary" variant="contained"
+              onClick={() => {
+                RemoveFromLinkedList(name);
+              }}
+            >
+              -
+            </Button>
+            <br />
+            <TextField defaultValue="Enter name to insert">
+            </TextField>
+            <Button color="primary" variant="contained"
+              onClick={() => {
+                AddToLinkedList(name);
+              }}
+            >
+              +
+            </Button>
+          </div>
+        ))
+      }
+      {
+        /*
+        <TextField
         label="John Doe"
         variant="filled"
         onChange={(e) => {
@@ -116,6 +168,9 @@ function LinkedListWorkspace() {
       }>
         {message ?? "#NAME?"}
       </Button>
+         */
+      }
+      
     </div>
   );
 }
