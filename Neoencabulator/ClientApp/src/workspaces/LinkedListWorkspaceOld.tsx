@@ -17,21 +17,7 @@ import { Button, TextField } from '@mui/material';
 
 function AddToLinkedList(input: string) {
     console.log("Added via Axios: ", input);
-    axios.post('LinkedList/append', { item: input })
-        .then((response: any) => {
-            console.log(response);
-        })
-        .catch(function (error: any) {
-            console.log(error);
-        })
-        .then(function () {
-            console.log("End of Axios Post");
-        });
-}
-
-function InsertToLinkedList(input: string) {
-    console.log("Added via Axios: ", input);
-    axios.post('LinkedList/insert', { item: input })
+    axios.post('LinkedList/add', { item: input })
         .then((response: any) => {
             console.log(response);
         })
@@ -72,7 +58,7 @@ function GetLinkedList(assignResult: Function) {
         });
 }
 
-function LinkedListWorkspace() {
+function LinkedListWorkspaceOld() {
 
     const axios = require('axios');
 
@@ -83,40 +69,52 @@ function LinkedListWorkspace() {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("Whom?");
 
+
+  const [weather, setWeather] = React.useState<string[]>();
+
   return (
     <div>
       <TextField
-        label="John Doe"
-        variant="filled"
-        onChange={(e) => {
-          setName(e.target.value);
-        }}
-      />
-      <Button color="primary" variant="contained"
-        onClick={() => {
-          AddToLinkedList(name);
-        }
-      }>
-        Submit Name
-      </Button>
-      <Button color="primary" variant="contained"
-        onClick={() => {
-          axios.get('/Users')
-            .then((response: any) => {
-            console.log(response.data);
-            setMessage(response.data);
-            })
-            .catch(function (error: any) {
-            console.log(error);
-            })
-            .then(function () {
-            console.log("End of Axios Get");
-            });
-        }
-      }>
-        {message ?? "#NAME?"}
-      </Button>
+          label="John Doe"
+          variant="filled"
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
+        <Button color="primary" variant="contained"
+            onClick={() => {
+                AddToLinkedList(name);
+            }
+            }>Submit Name
+        </Button>
+        <Button color="primary" variant="contained"
+          onClick={() => {
+            axios.get('/Users')
+              .then((response: any) => {
+                console.log(response.data);
+                setMessage(response.data);
+              })
+              .catch(function (error: any) {
+                console.log(error);
+              })
+              .then(function () {
+                console.log("End of Axios Get");
+              });
+          }
+        }>
+          {message ?? "#NAME?"}
+        </Button>
+        <Button color="primary" variant="contained"
+          onClick={() => {
+              GetLinkedList(setWeather);
+          }}
+        >
+          Get Weather
+        </Button>
+        <div>
+          {weather ?? "Not yet assigned"}
+      </div>
     </div>
   );
 }
-export default LinkedListWorkspace;
+export default LinkedListWorkspaceOld;
