@@ -72,46 +72,6 @@ function GetLinkedList(assignResult: Function) {
         });
 }
 
-
-interface NodeSectionProps {
-  id: string
-  item: string
-}
-function NodeSection(Props : NodeSectionProps) {
-  const [name, setName] = useState("");
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
-
-  return (
-    <>
-      <TextField value={name} onChange={handleChange}>
-      </TextField>
-      <Button color="primary" variant="contained"
-        onClick={() => {
-          // We need to fix how our insert Axios call works. It needs two inputs.
-          InsertToLinkedList(name);
-        }}
-      >
-        +
-      </Button>
-      <br/>
-      <Typography>
-        {
-          Props.item
-        }
-      </Typography>
-      <Button color="primary" variant="contained"
-        onClick={() => {
-          RemoveFromLinkedList(Props.id);
-        }}
-      >
-        -
-      </Button>
-    </>
-  )
-}
-
 function LinkedListWorkspace() {
   const [linkedList, setLinkedList] = useState<{ id: string, item: string }[]>([]);
   const [name, setName] = useState("");
@@ -120,17 +80,17 @@ function LinkedListWorkspace() {
   };
 
   useEffect(() => {
-    GetLinkedList(setLinkedList) 
+    GetLinkedList(setLinkedList)
   }, [linkedList]);
 
   return (
     <div>
       <div>
-      {
-        linkedList.map(object => (
-          NodeSection(object)
-        ))
-      }
+        {
+          //linkedList.map(object => (
+          //  NodeSection(object)
+          //))
+        }
       </div>
       <div>
         <TextField value={name} onChange={handleChange}>
