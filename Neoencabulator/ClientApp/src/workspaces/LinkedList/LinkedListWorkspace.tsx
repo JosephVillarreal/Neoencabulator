@@ -2,6 +2,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Button, TextField, Typography } from '@mui/material';
+import { NodeSection, singleNode } from './MappedComponent';
 
 /*
  * In this file, what I would like to do is:
@@ -73,23 +74,48 @@ function GetLinkedList(assignResult: Function) {
 }
 
 function LinkedListWorkspace() {
-  const [linkedList, setLinkedList] = useState<{ id: string, item: string }[]>([]);
+  const [linkedList, setLinkedList] = useState<singleNode[]>
+    (
+      [
+        {
+          id: "1",
+          content: "Joe V",
+          insertDelegate: (id: string, content: string) => { alert("id=$(id), content=$(content)") },
+          insertContent: "",
+          removeDelegate: (id: string, content: string) => { alert("id=$(id), content=$(content)") }
+        },
+        {
+          id: "2",
+          content: "Was",
+          insertDelegate: (id: string, content: string) => { alert("id=$(id), content=$(content)") },
+          insertContent: "",
+          removeDelegate: (id: string, content: string) => { alert("id=$(id), content=$(content)") }
+        },
+        {
+          id: "3",
+          content: "Here",
+          insertDelegate: (id: string, content: string) => { alert("id=$(id), content=$(content)") },
+          insertContent: "",
+          removeDelegate: (id: string, content: string) => { alert("id=$(id), content=$(content)") }
+        }
+      ]
+    );
   const [name, setName] = useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
 
-  useEffect(() => {
-    GetLinkedList(setLinkedList)
-  }, [linkedList]);
+  //useEffect(() => {
+  //  GetLinkedList(setLinkedList)
+  //}, [linkedList]);
 
   return (
     <div>
       <div>
         {
-          //linkedList.map(object => (
-          //  NodeSection(object)
-          //))
+          linkedList.map(node => (
+            NodeSection(node)
+          ))
         }
       </div>
       <div>

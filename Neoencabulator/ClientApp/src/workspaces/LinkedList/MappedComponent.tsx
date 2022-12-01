@@ -1,18 +1,34 @@
-﻿interface NodeSectionProps {
-  id: string
-  item: string
-  value: string
-  valueSetter: (callBack: Function) => void
+﻿import { Button, TextField, Typography } from "@mui/material"
+import React, { useState } from 'react';
+
+type singleNode = {
+  id: string,
+  content: string,
+  insertDelegate: Function,
+  insertContent: string,
+  removeDelegate: Function,
 }
-function NodeSection(Props: NodeSectionProps) {
+
+function NodeSection(input: singleNode) {
+  const [content, setContent] = useState("");
+
   return (
     <>
-      <TextField value={Props.value} onChange={Props.valueSetter()}>
+      <TextField
+        value={content}
+        onChange={
+          (e: React.ChangeEvent<HTMLInputElement>) =>
+          {
+            setContent(e.target.value);
+          }
+        }
+      >
       </TextField>
       <Button color="primary" variant="contained"
         onClick={() => {
-          // We need to fix how our insert Axios call works. It needs two inputs.
-          InsertToLinkedList(Props.value);
+          // We need to fix how our insert Axios call works.
+          // It needs two inputs, the content name, and the id of this node (to insert in front of).
+          input.insertDelegate();
         }}
       >
         +
@@ -20,12 +36,12 @@ function NodeSection(Props: NodeSectionProps) {
       <br />
       <Typography>
         {
-          Props.item
+          input.content
         }
       </Typography>
       <Button color="primary" variant="contained"
         onClick={() => {
-          RemoveFromLinkedList(Props.id);
+          input.removeDelegate();
         }}
       >
         -
@@ -33,3 +49,6 @@ function NodeSection(Props: NodeSectionProps) {
     </>
   )
 }
+
+export { NodeSection };
+export type { singleNode };
