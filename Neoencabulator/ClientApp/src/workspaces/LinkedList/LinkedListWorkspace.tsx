@@ -80,23 +80,23 @@ function LinkedListWorkspace() {
         {
           id: "1",
           content: "Joe V",
-          insertDelegate: (id: string, content: string) => { alert("id=$(id), content=$(content)") },
+          insertDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) },
           insertContent: "",
-          removeDelegate: (id: string, content: string) => { alert("id=$(id), content=$(content)") }
+          removeDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) }
         },
         {
           id: "2",
           content: "Was",
-          insertDelegate: (id: string, content: string) => { alert("id=$(id), content=$(content)") },
+          insertDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) },
           insertContent: "",
-          removeDelegate: (id: string, content: string) => { alert("id=$(id), content=$(content)") }
+          removeDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) }
         },
         {
           id: "3",
           content: "Here",
-          insertDelegate: (id: string, content: string) => { alert("id=$(id), content=$(content)") },
+          insertDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) },
           insertContent: "",
-          removeDelegate: (id: string, content: string) => { alert("id=$(id), content=$(content)") }
+          removeDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) }
         }
       ]
     );

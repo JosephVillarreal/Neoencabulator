@@ -28,7 +28,7 @@ function NodeSection(input: singleNode) {
         onClick={() => {
           // We need to fix how our insert Axios call works.
           // It needs two inputs, the content name, and the id of this node (to insert in front of).
-          input.insertDelegate();
+          input.insertDelegate(input.id, content);
         }}
       >
         +
@@ -41,7 +41,7 @@ function NodeSection(input: singleNode) {
       </Typography>
       <Button color="primary" variant="contained"
         onClick={() => {
-          input.removeDelegate();
+          input.removeDelegate(input.id, input.content);
         }}
       >
         -
