@@ -58,7 +58,7 @@ function RemoveFromLinkedList(input: string) {
         });
 }
 
-function GetLinkedList(assignResult: Function) {
+/*function GetLinkedList(assignResult: Function) {
     console.log("Got LinkedList via Axios");
     axios.get('LinkedList')
         .then((response: any) => {
@@ -71,9 +71,12 @@ function GetLinkedList(assignResult: Function) {
         .then(function () {
             console.log("End of Axios Post");
         });
-}
+}*/
 
 function LinkedListWorkspace() {
+  // https://www.google.com/search?q=react+map+index+bind+onchange&client=firefox-b-1-d&ei=vkSRY43LIvTQ9APJro7IDg&ved=0ahUKEwiNotP59ej7AhV0KH0KHUmXA-kQ4dUDCA8&uact=5&oq=react+map+index+bind+onchange&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCCEQoAEyBQghEKABMgUIIRCgAToKCAAQRxDWBBCwAzoFCAAQkQI6BQgAEIAEOgUIABCGAzoGCAAQFhAeOggIIRAWEB4QHToFCCEQqwJKBAhBGABKBAhGGABQoQZYy7YBYKS4AWgBcAF4AYAB6AKIAZkVkgEINi4xMS4xLjGYAQCgAQHIAQjAAQE&sclient=gws-wiz-serp
+  // To get the location of the hidden rebel base: https://stackoverflow.com/questions/69227067/how-to-get-value-of-inputs-onchange-when-they-are-inside-map-function
+  const [typed, setTyped] = useState<string[]>([]);
   const [linkedList, setLinkedList] = useState<singleNode[]>
     (
       [
@@ -82,6 +85,7 @@ function LinkedListWorkspace() {
           content: "Joe V",
           insertDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) },
           insertContent: "",
+          setInsertContent: () => { },
           removeDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) }
         },
         {
@@ -89,13 +93,7 @@ function LinkedListWorkspace() {
           content: "Was",
           insertDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) },
           insertContent: "",
-          removeDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) }
-        },
-        {
-          id: "3",
-          content: "Here",
-          insertDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) },
-          insertContent: "",
+          setInsertContent: () => { },
           removeDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) }
         }
       ]
@@ -105,9 +103,19 @@ function LinkedListWorkspace() {
     setName(event.target.value);
   };
 
-  //useEffect(() => {
-  //  GetLinkedList(setLinkedList)
-  //}, [linkedList]);
+  useEffect(() => {
+    axios.get('LinkedList')
+      .then((response: any) => {
+        console.log(response);
+        setLinkedList(response.data);
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      })
+      .then(function () {
+        console.log("End of Axios Post");
+      });
+  }, []);
 
   return (
     <div>

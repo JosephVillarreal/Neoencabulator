@@ -6,20 +6,21 @@ type singleNode = {
   content: string,
   insertDelegate: Function,
   insertContent: string,
+  setInsertContent: Function,
   removeDelegate: Function,
 }
 
 function NodeSection(input: singleNode) {
-  const [content, setContent] = useState("");
+  //const [content, setContent] = useState("");
 
   return (
     <>
       <TextField
-        value={content}
+        value={'content'}
         onChange={
           (e: React.ChangeEvent<HTMLInputElement>) =>
           {
-            setContent(e.target.value);
+            //setContent(e.target.value);
           }
         }
       >
@@ -28,7 +29,7 @@ function NodeSection(input: singleNode) {
         onClick={() => {
           // We need to fix how our insert Axios call works.
           // It needs two inputs, the content name, and the id of this node (to insert in front of).
-          input.insertDelegate(input.id, content);
+          input.insertDelegate(input.id, 'content');
         }}
       >
         +
