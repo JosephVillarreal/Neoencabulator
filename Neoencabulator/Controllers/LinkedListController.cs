@@ -33,9 +33,10 @@ namespace Neoencabulator.Controllers
         }
 
         [HttpPost("append")]
-        public void AddItem(LinkedListPoco post)
+        public IActionResult AddItem(LinkedListPoco post)
         {
             LinkedListLogic.addNode(post.item);
+            return StatusCode(204);
         }
 
         [HttpPost("insert")]

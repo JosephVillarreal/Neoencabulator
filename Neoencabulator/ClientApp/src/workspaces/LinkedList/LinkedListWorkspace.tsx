@@ -17,6 +17,32 @@ import { MappedModule, MappedModuleProps } from './MappedModule';
  */
 
 function LinkedListWorkspace() {
+  function GetLinkedList() {
+    axios.get('LinkedList')
+      .then((response: any) => {
+        console.log(response);
+        //_setLinkedList(response.data);
+        let receivedData = response.data.map((node: MappedModuleProps) => {
+          let nodeModule: MappedModuleProps = {
+            id: node.id,
+            content: node.content,
+            insertContent: '',
+            setInsertContentHandler: () => { },
+            insertButtonHandler: () => { },
+            deleteHandler: () => { },
+          }
+          return nodeModule;
+        });
+        setLinkedList(receivedData);
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      })
+      .then(function () {
+        console.log("End of Axios Post");
+      });
+  }
+
   function AddToLinkedList(input: string) {
     console.log("Added via Axios: ", input);
     axios.post('LinkedList/append', { item: input })
@@ -27,7 +53,8 @@ function LinkedListWorkspace() {
         console.log(error);
       })
       .then(function () {
-        console.log("End of Axios Post");
+        console.log("End of Axios Post, getting LinkedList again");
+        GetLinkedList();
       });
   }
 
@@ -59,25 +86,6 @@ function LinkedListWorkspace() {
       });
   }
 
-  /*function GetLinkedList(assignResult: Function) {
-      console.log("Got LinkedList via Axios");
-      axios.get('LinkedList')
-          .then((response: any) => {
-              console.log(response);
-              assignResult(response.data);
-          })
-          .catch(function (error: any) {
-              console.log(error);
-          })
-          .then(function () {
-              console.log("End of Axios Post");
-          });
-  }*/
-
-  //let Node: MappedModuleProps;
-
-  // https://www.google.com/search?q=react+map+index+bind+onchange&client=firefox-b-1-d&ei=vkSRY43LIvTQ9APJro7IDg&ved=0ahUKEwiNotP59ej7AhV0KH0KHUmXA-kQ4dUDCA8&uact=5&oq=react+map+index+bind+onchange&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCCEQoAEyBQghEKABMgUIIRCgAToKCAAQRxDWBBCwAzoFCAAQkQI6BQgAEIAEOgUIABCGAzoGCAAQFhAeOggIIRAWEB4QHToFCCEQqwJKBAhBGABKBAhGGABQoQZYy7YBYKS4AWgBcAF4AYAB6AKIAZkVkgEINi4xMS4xLjGYAQCgAQHIAQjAAQE&sclient=gws-wiz-serp
-  // To get the location of the hidden rebel base: https://stackoverflow.com/questions/69227067/how-to-get-value-of-inputs-onchange-when-they-are-inside-map-function
   const [typed, setTyped] = useState<string[]>([]);
   const [linkedList, _setLinkedList] = useState<MappedModuleProps[]>([]);
 /*(
@@ -107,31 +115,11 @@ function LinkedListWorkspace() {
 
   const linkedListReference = useRef(linkedList);
   function setLinkedList(input: MappedModuleProps[]) {
+    console.log("Updating LinkedList.");
     linkedListReference.current = input;
     _setLinkedList(input);
-    console.log("LinkedList was updated: ", linkedList);
+    console.log("LinkedList was updated.");
   }
-
-/*
-type MappedModuleProps = {
-  id: string,
-  content: string,
-  insertContent: string,
-  setInsertContentHandler: Function,
-  insertButtonHandler: Function,
-  deleteHandler: Function,
-}
-*/
-
-/*
-      public LinkedListNode()
-      {
-          id = Guid.NewGuid();
-          content = "";
-          previous = null;
-          next = null;
-      }
-  */
 
   type backendResponseNode = {
     id: string,
@@ -141,28 +129,7 @@ type MappedModuleProps = {
   }
 
   useEffect(() => {
-    axios.get('LinkedList')
-      .then((response: any) => {
-        console.log(response);
-        //_setLinkedList(response.data);
-        let receivedData = response.data.map((node: MappedModuleProps) => {
-          let nodeModule: MappedModuleProps = {
-            id: node.id,
-            content: node.content,
-            insertContent: '',
-            setInsertContentHandler: () => { },
-            insertButtonHandler: () => { },
-            deleteHandler: () => { },
-          }
-        });
-        setLinkedList(receivedData);
-      })
-      .catch(function (error: any) {
-        console.log(error);
-      })
-      .then(function () {
-        console.log("End of Axios Post");
-      });
+    GetLinkedList();
   }, []);
 
   return (
