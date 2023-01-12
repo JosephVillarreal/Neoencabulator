@@ -1,16 +1,16 @@
 ﻿import { Button, TextField, Typography } from "@mui/material"
 import React, { useState } from 'react';
 
-type singleNode = {
+type MappedModuleProps = {
   id: string,
   content: string,
-  insertDelegate: Function,
   insertContent: string,
-  setInsertContent: Function,
-  removeDelegate: Function,
+  setInsertContentHandler: Function,
+  insertButtonHandler: Function,
+  deleteHandler: Function,
 }
 
-function NodeSection(input: singleNode) {
+function MappedModule(props: MappedModuleProps) {
   //const [content, setContent] = useState("");
 
   return (
@@ -29,7 +29,7 @@ function NodeSection(input: singleNode) {
         onClick={() => {
           // We need to fix how our insert Axios call works.
           // It needs two inputs, the content name, and the id of this node (to insert in front of).
-          input.insertDelegate(input.id, 'content');
+          props.insertButtonHandler(props.id, 'content');
         }}
       >
         +
@@ -37,12 +37,12 @@ function NodeSection(input: singleNode) {
       <br />
       <Typography>
         {
-          input.content
+          props.content
         }
       </Typography>
       <Button color="primary" variant="contained"
         onClick={() => {
-          input.removeDelegate(input.id, input.content);
+          props.insertButtonHandler(props.id, props.content);
         }}
       >
         -
@@ -51,5 +51,5 @@ function NodeSection(input: singleNode) {
   )
 }
 
-export { NodeSection };
-export type { singleNode };
+export { MappedModule };
+export type { MappedModuleProps };

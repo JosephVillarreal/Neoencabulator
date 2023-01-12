@@ -1,8 +1,8 @@
 ﻿
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button, TextField, Typography } from '@mui/material';
-import { NodeSection, singleNode } from './MappedComponent';
+import { MappedModule, MappedModuleProps } from './MappedModule';
 
 /*
  * In this file, what I would like to do is:
@@ -16,69 +16,71 @@ import { NodeSection, singleNode } from './MappedComponent';
  * Have a button to "clear selection"
  */
 
-function AddToLinkedList(input: string) {
+function LinkedListWorkspace() {
+  function AddToLinkedList(input: string) {
     console.log("Added via Axios: ", input);
     axios.post('LinkedList/append', { item: input })
-        .then((response: any) => {
-            console.log(response);
-        })
-        .catch(function (error: any) {
-            console.log(error);
-        })
-        .then(function () {
-            console.log("End of Axios Post");
-        });
-}
+      .then((response: any) => {
+        console.log(response);
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      })
+      .then(function () {
+        console.log("End of Axios Post");
+      });
+  }
 
-function InsertToLinkedList(input: string) {
+  function InsertToLinkedList(input: string) {
     console.log("Added via Axios: ", input);
     axios.post('LinkedList/insert', { item: input })
-        .then((response: any) => {
-            console.log(response);
-        })
-        .catch(function (error: any) {
-            console.log(error);
-        })
-        .then(function () {
-            console.log("End of Axios Post");
-        });
-}
+      .then((response: any) => {
+        console.log(response);
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      })
+      .then(function () {
+        console.log("End of Axios Post");
+      });
+  }
 
-function RemoveFromLinkedList(input: string) {
+  function RemoveFromLinkedList(input: string) {
     console.log("Removed via Axios: ", input);
     axios.post('LinkedList/remove', { item: input })
-        .then((response: any) => {
-            console.log(response);
-        })
-        .catch(function (error: any) {
-            console.log(error);
-        })
-        .then(function () {
-            console.log("End of Axios Post");
-        });
-}
+      .then((response: any) => {
+        console.log(response);
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      })
+      .then(function () {
+        console.log("End of Axios Post");
+      });
+  }
 
-/*function GetLinkedList(assignResult: Function) {
-    console.log("Got LinkedList via Axios");
-    axios.get('LinkedList')
-        .then((response: any) => {
-            console.log(response);
-            assignResult(response.data);
-        })
-        .catch(function (error: any) {
-            console.log(error);
-        })
-        .then(function () {
-            console.log("End of Axios Post");
-        });
-}*/
+  /*function GetLinkedList(assignResult: Function) {
+      console.log("Got LinkedList via Axios");
+      axios.get('LinkedList')
+          .then((response: any) => {
+              console.log(response);
+              assignResult(response.data);
+          })
+          .catch(function (error: any) {
+              console.log(error);
+          })
+          .then(function () {
+              console.log("End of Axios Post");
+          });
+  }*/
 
-function LinkedListWorkspace() {
+  //let Node: MappedModuleProps;
+
   // https://www.google.com/search?q=react+map+index+bind+onchange&client=firefox-b-1-d&ei=vkSRY43LIvTQ9APJro7IDg&ved=0ahUKEwiNotP59ej7AhV0KH0KHUmXA-kQ4dUDCA8&uact=5&oq=react+map+index+bind+onchange&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCCEQoAEyBQghEKABMgUIIRCgAToKCAAQRxDWBBCwAzoFCAAQkQI6BQgAEIAEOgUIABCGAzoGCAAQFhAeOggIIRAWEB4QHToFCCEQqwJKBAhBGABKBAhGGABQoQZYy7YBYKS4AWgBcAF4AYAB6AKIAZkVkgEINi4xMS4xLjGYAQCgAQHIAQjAAQE&sclient=gws-wiz-serp
   // To get the location of the hidden rebel base: https://stackoverflow.com/questions/69227067/how-to-get-value-of-inputs-onchange-when-they-are-inside-map-function
   const [typed, setTyped] = useState<string[]>([]);
-  const [linkedList, setLinkedList] = useState<singleNode[]>
-    (
+  const [linkedList, _setLinkedList] = useState<MappedModuleProps[]>([]);
+/*(
       [
         {
           id: "1",
@@ -97,17 +99,63 @@ function LinkedListWorkspace() {
           removeDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) }
         }
       ]
-    );
+    );*/
   const [name, setName] = useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
 
+  const linkedListReference = useRef(linkedList);
+  function setLinkedList(input: MappedModuleProps[]) {
+    linkedListReference.current = input;
+    _setLinkedList(input);
+    console.log("LinkedList was updated: ", linkedList);
+  }
+
+/*
+type MappedModuleProps = {
+  id: string,
+  content: string,
+  insertContent: string,
+  setInsertContentHandler: Function,
+  insertButtonHandler: Function,
+  deleteHandler: Function,
+}
+*/
+
+/*
+      public LinkedListNode()
+      {
+          id = Guid.NewGuid();
+          content = "";
+          previous = null;
+          next = null;
+      }
+  */
+
+  type backendResponseNode = {
+    id: string,
+    content: string,
+    previous: string,
+    next: string,
+  }
+
   useEffect(() => {
     axios.get('LinkedList')
       .then((response: any) => {
         console.log(response);
-        setLinkedList(response.data);
+        //_setLinkedList(response.data);
+        let receivedData = response.data.map((node: MappedModuleProps) => {
+          let nodeModule: MappedModuleProps = {
+            id: node.id,
+            content: node.content,
+            insertContent: '',
+            setInsertContentHandler: () => { },
+            insertButtonHandler: () => { },
+            deleteHandler: () => { },
+          }
+        });
+        setLinkedList(receivedData);
       })
       .catch(function (error: any) {
         console.log(error);
@@ -122,7 +170,7 @@ function LinkedListWorkspace() {
       <div>
         {
           linkedList.map(node => (
-            NodeSection(node)
+            MappedModule(node)
           ))
         }
       </div>
