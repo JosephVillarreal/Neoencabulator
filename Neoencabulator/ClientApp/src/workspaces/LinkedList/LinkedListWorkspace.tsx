@@ -33,7 +33,7 @@ function LinkedListWorkspace() {
             content: node.item,
             insertContent: '',
             setInsertContentHandler: () => { },
-            insertButtonHandler: () => { },
+            insertHandler: InsertToLinkedList,
             deleteHandler: RemoveFromLinkedList,
           }
           return nodeModule;
@@ -63,9 +63,9 @@ function LinkedListWorkspace() {
       });
   }
 
-  function InsertToLinkedList(input: string) {
+  function InsertToLinkedList(id: string, input: string) {
     console.log("Added via Axios: ", input);
-    axios.post('LinkedList/insert', { item: input })
+    axios.post('LinkedList/insert', { toInsert: input, beforeLocation: id })
       .then((response: any) => {
         console.log(response);
       })
@@ -74,6 +74,7 @@ function LinkedListWorkspace() {
       })
       .then(function () {
         console.log("End of Axios Post");
+        GetLinkedList();
       });
   }
 

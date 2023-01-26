@@ -6,7 +6,7 @@ type MappedModuleProps = {
   content: string,
   insertContent: string,
   setInsertContentHandler: Function,
-  insertButtonHandler: Function,
+  insertHandler: Function,
   deleteHandler: Function,
 }
 
@@ -29,7 +29,7 @@ function MappedModule(props: MappedModuleProps) {
         onClick={() => {
           // We need to fix how our insert Axios call works.
           // It needs two inputs, the content name, and the id of this node (to insert in front of).
-          props.insertButtonHandler(props.id, 'content');
+          props.insertHandler(props.id, 'example');
         }}
       >
         +
