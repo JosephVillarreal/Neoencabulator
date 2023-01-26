@@ -16,16 +16,21 @@ import { MappedModule, MappedModuleProps } from './MappedModule';
  * Have a button to "clear selection"
  */
 
+type BackendDataProps = {
+  id: string,
+  item: string,
+}
+
 function LinkedListWorkspace() {
   function GetLinkedList() {
     axios.get('LinkedList')
       .then((response: any) => {
         console.log(response);
         //_setLinkedList(response.data);
-        let receivedData = response.data.map((node: MappedModuleProps) => {
+        let receivedData = response.data.map((node: BackendDataProps) => {
           let nodeModule: MappedModuleProps = {
             id: node.id,
-            content: node.content,
+            content: node.item,
             insertContent: '',
             setInsertContentHandler: () => { },
             insertButtonHandler: () => { },

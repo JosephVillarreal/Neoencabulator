@@ -16,7 +16,7 @@ function MappedModule(props: MappedModuleProps) {
   return (
     <>
       <TextField
-        value={'content'}
+        value={''}
         onChange={
           (e: React.ChangeEvent<HTMLInputElement>) =>
           {
