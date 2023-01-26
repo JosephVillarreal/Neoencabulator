@@ -42,7 +42,7 @@ function MappedModule(props: MappedModuleProps) {
       </Typography>
       <Button color="primary" variant="contained"
         onClick={() => {
-          props.insertButtonHandler(props.id, props.content);
+          props.deleteHandler(props.id);
         }}
       >
         -

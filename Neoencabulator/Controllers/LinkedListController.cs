@@ -46,9 +46,10 @@ namespace Neoencabulator.Controllers
         }
 
         [HttpPost("remove")]
-        public void RemoveName(LinkedListPoco post)
+        public IActionResult RemoveName(LinkedListPoco post)
         {
-            LinkedListLogic.removeNode(post.id);
+          LinkedListLogic.removeNode(post.id);
+          return StatusCode(204);
         }
 
         [HttpGet]
