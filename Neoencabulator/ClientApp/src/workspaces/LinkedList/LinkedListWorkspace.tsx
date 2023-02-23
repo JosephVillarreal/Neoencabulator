@@ -26,13 +26,12 @@ function LinkedListWorkspace() {
     axios.get('LinkedList')
       .then((response: any) => {
         console.log(response);
-        //_setLinkedList(response.data);
-        let receivedData = response.data.map((node: BackendDataProps) => {
+        let receivedData: MappedModuleProps[] = response.data.map((node: BackendDataProps) => {
           let nodeModule: MappedModuleProps = {
             id: node.id,
             content: node.item,
             insertContent: '',
-            setInsertContentHandler: () => { },
+            setInsertContentHandler: setTyped,
             insertHandler: InsertToLinkedList,
             deleteHandler: RemoveFromLinkedList,
           }
@@ -93,39 +92,31 @@ function LinkedListWorkspace() {
       });
   }
 
-  const [typed, setTyped] = useState<string[]>([]);
-  const [linkedList, _setLinkedList] = useState<MappedModuleProps[]>([]);
-/*(
-      [
-        {
-          id: "1",
-          content: "Joe V",
-          insertDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) },
-          insertContent: "",
-          setInsertContent: () => { },
-          removeDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) }
-        },
-        {
-          id: "2",
-          content: "Was",
-          insertDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) },
-          insertContent: "",
-          setInsertContent: () => { },
-          removeDelegate: (id: string, content: string) => { alert(`id=${id}, content=${content}`) }
-        }
-      ]
-    );*/
   const [name, setName] = useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
 
+  const [linkedList, _setLinkedList] = useState<MappedModuleProps[]>([]);
+  console.log("LinkedList: ", linkedList);
   const linkedListReference = useRef(linkedList);
   function setLinkedList(input: MappedModuleProps[]) {
     console.log("Updating LinkedList.");
     linkedListReference.current = input;
     _setLinkedList(input);
     console.log("LinkedList was updated.");
+  }
+
+  function setTyped(input: string, id: string) {
+    let updatedList = [...linkedListReference.current];
+    let node = updatedList?.find(node => node.id == id);
+    if (node) {
+      node.insertContent = input
+    }
+    else {
+      return; // How did this happen? They have a node with a bad id.
+    }
+    _setLinkedList(updatedList);
   }
 
   type backendResponseNode = {
@@ -154,6 +145,7 @@ function LinkedListWorkspace() {
         <Button color="primary" variant="contained"
           onClick={() => {
             AddToLinkedList(name);
+            setName('');
           }}
         >
           +

@@ -11,25 +11,21 @@ type MappedModuleProps = {
 }
 
 function MappedModule(props: MappedModuleProps) {
-  //const [content, setContent] = useState("");
-
   return (
     <>
       <TextField
-        value={''}
+        value={props.insertContent}
         onChange={
           (e: React.ChangeEvent<HTMLInputElement>) =>
           {
-            //setContent(e.target.value);
+            props?.setInsertContentHandler(e.target.value, props.id);
           }
         }
       >
       </TextField>
       <Button color="primary" variant="contained"
         onClick={() => {
-          // We need to fix how our insert Axios call works.
-          // It needs two inputs, the content name, and the id of this node (to insert in front of).
-          props.insertHandler(props.id, 'example');
+          props.insertHandler(props.id, props.insertContent);
         }}
       >
         +
