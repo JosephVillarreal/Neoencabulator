@@ -128,9 +128,10 @@ function LinkedListWorkspace() {
           ))
         }
       </div>
-      <div>
-        <TextField value={name} onChange={handleChange}>
-        </TextField>
+      <div
+        id="appendRowDiv"
+        style={{ height: '50px' }}
+      >
         <Button color="primary" variant="contained"
           onClick={() => {
             AddToLinkedList(name);
@@ -139,6 +140,12 @@ function LinkedListWorkspace() {
         >
           +
         </Button>
+        <TextField
+          value={name}
+          onChange={handleChange}
+          size="small"
+        >
+        </TextField>
       </div>
     </div>
   );
