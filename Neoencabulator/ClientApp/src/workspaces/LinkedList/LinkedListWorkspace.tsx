@@ -1,9 +1,7 @@
 ﻿import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
 import { Button, TextField } from '@mui/material';
-import { MappedModule, MappedModuleProps } from './MappedModule';
-
-
+import { LinkedListNodeComponent, LinkedListNodeComponentProps } from './LinkedListNodeComponent';
 
 type BackendDataProps = {
   id: string,
@@ -15,8 +13,8 @@ function LinkedListWorkspace() {
     axios.get('LinkedList')
       .then((response: any) => {
         console.log(response);
-        let receivedData: MappedModuleProps[] = response.data.map((node: BackendDataProps) => {
-          let nodeModule: MappedModuleProps = {
+        let receivedData: LinkedListNodeComponentProps[] = response.data.map((node: BackendDataProps) => {
+          let nodeModule: LinkedListNodeComponentProps = {
             id: node.id,
             content: node.item,
             insertContent: '',
@@ -86,10 +84,10 @@ function LinkedListWorkspace() {
     setName(event.target.value);
   };
 
-  const [linkedList, _setLinkedList] = useState<MappedModuleProps[]>([]);
+  const [linkedList, _setLinkedList] = useState<LinkedListNodeComponentProps[]>([]);
   console.log("LinkedList: ", linkedList);
   const linkedListReference = useRef(linkedList);
-  function setLinkedList(input: MappedModuleProps[]) {
+  function setLinkedList(input: LinkedListNodeComponentProps[]) {
     console.log("Updating LinkedList.");
     linkedListReference.current = input;
     _setLinkedList(input);
@@ -124,7 +122,7 @@ function LinkedListWorkspace() {
       <div>
         {
           linkedList.map(node => (
-            MappedModule(node)
+            LinkedListNodeComponent(node)
           ))
         }
       </div>

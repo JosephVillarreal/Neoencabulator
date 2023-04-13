@@ -1,7 +1,7 @@
-﻿import { Button, TextField, Typography } from "@mui/material"
+﻿import { Button, TextField } from "@mui/material"
 import React from 'react';
 
-type MappedModuleProps = {
+type LinkedListNodeComponentProps = {
   id: string,
   content: string,
   insertContent: string,
@@ -10,8 +10,7 @@ type MappedModuleProps = {
   deleteHandler: Function,
 }
 
-// Rename this function to be something like "LinkedListNodeView"
-function MappedModule(props: MappedModuleProps) {
+function LinkedListNodeComponent(props: LinkedListNodeComponentProps) {
   return (
     <div>
       <div
@@ -58,5 +57,5 @@ function MappedModule(props: MappedModuleProps) {
   )
 }
 
-export { MappedModule };
-export type { MappedModuleProps };
+export { LinkedListNodeComponent };
+export type { LinkedListNodeComponentProps };

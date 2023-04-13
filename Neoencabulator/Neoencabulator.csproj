@@ -27,7 +27,7 @@
   <ItemGroup>
     <None Remove="ClientApp\src\workspaces\linkedListWorkspace.tsx" />
     <None Remove="ClientApp\src\workspaces\LinkedListWorkspaceOld.tsx" />
-    <None Remove="ClientApp\src\workspaces\LinkedList\MappedModule.tsx" />
+    <None Remove="ClientApp\src\workspaces\LinkedList\LinkedListNodeComponent.tsx" />
     <None Remove="ClientApp\src\workspaces\WelcomeWorkspace.tsx" />
   </ItemGroup>
 
