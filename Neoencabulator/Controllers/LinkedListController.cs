@@ -33,21 +33,24 @@ namespace Neoencabulator.Controllers
         }
 
         [HttpPost("append")]
-        public void AddItem(LinkedListPoco post)
+        public IActionResult AddItem(LinkedListPoco post)
         {
-            LinkedListLogic.addNode(post.item);
+          LinkedListLogic.addNode(post.item);
+          return StatusCode(204);
         }
 
         [HttpPost("insert")]
-        public void InsertItem(LinkedListInsertPayload payload) // Controller POST methods can only have a single input. See: https://stackoverflow.com/questions/6627300/post-multiple-parameters-to-mvc-controller-using-c-sharp
+        public IActionResult InsertItem(LinkedListInsertPayload payload) // Controller POST methods can only have a single input. See: https://stackoverflow.com/questions/6627300/post-multiple-parameters-to-mvc-controller-using-c-sharp
         { 
-            LinkedListLogic.insertNode(payload.toInsert, payload.beforeLocation);
+          LinkedListLogic.insertNode(payload.toInsert, payload.beforeLocation);
+          return StatusCode(204);
         }
 
         [HttpPost("remove")]
-        public void RemoveName(LinkedListPoco post)
+        public IActionResult RemoveName(LinkedListPoco post)
         {
-            LinkedListLogic.removeNode(post.id);
+          LinkedListLogic.removeNode(post.id);
+          return StatusCode(204);
         }
 
         [HttpGet]

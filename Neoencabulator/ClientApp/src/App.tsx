@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import WelcomeWorkspace from './workspaces/WelcomeWorkspace'
-import LinkedListWorkspace from './workspaces/LinkedList/LinkedListWorkspace'
 import { Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import WelcomeWorkspace from './workspaces/WelcomeWorkspace'
+import LinkedListWorkspace from './workspaces/LinkedList/LinkedListWorkspace'
+import FactorialWorkspace from './workspaces/Factorial/FactorialWorkspace';
 
 const useStyles = makeStyles({
   titleBarButton: {
@@ -34,13 +35,16 @@ function App() {
 
   enum workspace {
     welcome,
-    linkedList
+    linkedList,
+    factorial
   }
   const [currentWorkspace, setCurrentWorkspace] = useState<workspace>(workspace.welcome);
   function getCurrentWorkspace() {
     switch (currentWorkspace) {
       case workspace.linkedList:
         return <LinkedListWorkspace/>
+      case workspace.factorial:
+        return <FactorialWorkspace/>
       default:
         return <WelcomeWorkspace/>
     }
@@ -75,6 +79,18 @@ function App() {
             }
             }>
             Linked List
+          </Button>
+          <Button
+            id="linkedList-workspace-button"
+            className={classes.standardSizedButton}
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              console.log("Changed to workspace: linkedList");
+              setCurrentWorkspace(workspace.factorial);
+            }
+            }>
+            Factorial
           </Button>
         </div>
         <div id="workspace" className={classes.workspaceContent}>
