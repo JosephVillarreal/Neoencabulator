@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import WelcomeWorkspace from './workspaces/WelcomeWorkspace'
-import LinkedListWorkspace from './workspaces/LinkedListWorkspace'
+import LinkedListWorkspace from './workspaces/LinkedList/LinkedListWorkspace'
 import { Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
