@@ -4,7 +4,7 @@
   {
     public static int calculateFactorial(int input)
     {
-      return 42;
+      return input;
     }
   }
 }

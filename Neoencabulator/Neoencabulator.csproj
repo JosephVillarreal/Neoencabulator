@@ -25,14 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\workspaces\Factorial\FactorialWorkspace.tsx" />
     <None Remove="ClientApp\src\workspaces\linkedListWorkspace.tsx" />
     <None Remove="ClientApp\src\workspaces\LinkedListWorkspaceOld.tsx" />
     <None Remove="ClientApp\src\workspaces\LinkedList\LinkedListNodeComponent.tsx" />
     <None Remove="ClientApp\src\workspaces\WelcomeWorkspace.tsx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\src\workspaces\Factorial\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
