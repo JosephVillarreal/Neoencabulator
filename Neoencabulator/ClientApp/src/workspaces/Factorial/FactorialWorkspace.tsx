@@ -2,11 +2,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button, TextField, Typography } from '@mui/material';
 
-type BackendDataProps = {
-  id: string,
-  item: string,
-}
-
 function FactorialWorkspace() {
   function GetFactorial(input: number) {
     axios.get('Factorial', { params: { input: input } })
