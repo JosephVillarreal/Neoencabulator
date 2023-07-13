@@ -1,7 +1,7 @@
 ﻿import { makeStyles } from '@mui/styles';
 import axios from 'axios';
-import React, { useState, useEffect, useRef } from 'react';
-import { Button, TextField, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Button, TextField } from '@mui/material';
 
 const useStyles = makeStyles({
   exceptionTextField: {
@@ -15,7 +15,7 @@ function ExceptionsWorkspace() {
   const classes = useStyles();
 
   function runException(input: number) {
-    axios.get('Exception', { params: { input: input } })
+    axios.get('Exceptions', { params: { input: input } })
       .then((response: any) => {
         console.log(response);
         setResult(response.data);
@@ -52,18 +52,18 @@ to the safety rail
 `
 
   const [exceptionQuestion, setExceptionQuestion] = useState<number>(0);
-  const [result, setResult] = useState<string>(firstException);
+  const [result, setResult] = useState<string>("");
 
   function updateQuestionText(question: number) {
     switch (question) {
-      case 3: {
-        return thirdException;
+      case 1: {
+        return firstException;
       }
       case 2: {
         return secondException;
       }
-      case 1: {
-        return firstException;
+      case 3: {
+        return thirdException;
       }
       default: {
         return "\nClick a question to begin.";
@@ -109,6 +109,11 @@ to the safety rail
         >
           Run code
         </Button>
+        <TextField
+          inputProps={{ readOnly: true, value: result }}
+          size="small"
+          label="Result"
+        />
       </div>
     </div>
   );
