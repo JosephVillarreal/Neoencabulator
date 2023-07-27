@@ -30,25 +30,65 @@ function ExceptionsWorkspace() {
 
   const firstException: string =
 `
-This is the example text for the 1st exception question.Lora Ipsum.
+int foo()
+{
+  int i = 0;
+  i++;
+  throw new Exception();
+  i++;
+  return i;
+}
 `
   const secondException: string =
 `
-Baby blue buildings far above the crystal grove
-Magenta plated terrace with a table and a stove
-Guarded golden railing just to frame the pretty stars
-Fix that old piano and the birds will fall apart
+int foo()
+{
+  int i = 0;
+  i++;
+  i = bar(i);
+  i++;
+  return i;
+}
+
+int bar(int i)
+{
+  i++;
+  throw new Exception();
+  i++;
+  return i;
+}
 `
   const thirdException: string =
 `
-I was once a tree house
-I lived in a cake
-but i never saw the way
-the orange slayed the rake
-I was only three years dead
-but it told a tale
-and now listen little child
-to the safety rail
+int foo()
+{
+  int i = 0;
+
+  try
+  {
+    i++;
+    i = bar(i);
+    i++;
+  }
+  catch (Exception x)
+  {
+    i++;
+  }
+  finally
+  {
+    i++;
+  }
+
+  return i;
+}
+
+int bar(int i)
+{
+  i++;
+  throw new Exception();
+  i++;
+  return i;
+}
 `
 
   const [exceptionQuestion, setExceptionQuestion] = useState<number>(0);

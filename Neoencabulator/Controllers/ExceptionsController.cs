@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Neoencabulator.Logic;
+using Neoencabulator.Logic.ExceptionsLogic;
 using System;
 
 namespace Neoencabulator.Controllers
@@ -11,25 +12,30 @@ namespace Neoencabulator.Controllers
     [HttpGet]
     public string Get(int input)
     {
+      int readValue;
       string result = "";
       try
       {
         switch (input)
         {
           case 1:
-            // result = FirstException();
+            readValue = ExceptionsLogic.FirstException();
+            result = readValue.ToString();
             break;
           case 2:
-            // result = SecondException();
+            readValue = ExceptionsLogic.SecondException();
+            result = readValue.ToString();
             break;
           case 3:
-            // result = ThirdException();
+            readValue = ExceptionsLogic.ThirdException();
+            result = readValue.ToString();
             break;
           default:
-            throw new Exception();
+            result = "Select an Exception Question.";
+            break;
         }
       }
-      catch(Exception exception) // All exceptions
+      catch(Exception exception) // Consume all expcetions.
       {
         result = exception.Message;
       }
