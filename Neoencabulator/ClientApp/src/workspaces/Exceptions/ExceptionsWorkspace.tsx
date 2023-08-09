@@ -30,8 +30,7 @@ function ExceptionsWorkspace() {
 
   const firstException: string =
 `
-int foo()
-{
+int foo() {
   int i = 0;
   i++;
   throw new Exception();
@@ -41,8 +40,7 @@ int foo()
 `
   const secondException: string =
 `
-int foo()
-{
+int foo() {
   int i = 0;
   i++;
   i = bar(i);
@@ -50,8 +48,7 @@ int foo()
   return i;
 }
 
-int bar(int i)
-{
+int bar(int i) {
   i++;
   throw new Exception();
   i++;
@@ -60,30 +57,23 @@ int bar(int i)
 `
   const thirdException: string =
 `
-int foo()
-{
+int foo() {
   int i = 0;
-
-  try
-  {
+  try {
     i++;
     i = bar(i);
     i++;
   }
-  catch (Exception x)
-  {
+  catch (Exception x) {
     i++;
   }
-  finally
-  {
+  finally {
     i++;
   }
-
   return i;
 }
 
-int bar(int i)
-{
+int bar(int i) {
   i++;
   throw new Exception();
   i++;
