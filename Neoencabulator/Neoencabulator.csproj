@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\workspaces\Exceptions\ExceptionsWorkspace.tsx" />
     <None Remove="ClientApp\src\workspaces\Factorial\FactorialWorkspace.tsx" />
     <None Remove="ClientApp\src\workspaces\linkedListWorkspace.tsx" />
     <None Remove="ClientApp\src\workspaces\LinkedListWorkspaceOld.tsx" />

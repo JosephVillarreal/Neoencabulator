@@ -4,6 +4,7 @@ import { makeStyles } from '@mui/styles';
 import WelcomeWorkspace from './workspaces/WelcomeWorkspace'
 import LinkedListWorkspace from './workspaces/LinkedList/LinkedListWorkspace'
 import FactorialWorkspace from './workspaces/Factorial/FactorialWorkspace';
+import ExceptionsWorkspace from './workspaces/Exceptions/ExceptionsWorkspace';
 
 const useStyles = makeStyles({
   titleBarButton: {
@@ -36,7 +37,8 @@ function App() {
   enum workspace {
     welcome,
     linkedList,
-    factorial
+    factorial,
+    exceptions
   }
   const [currentWorkspace, setCurrentWorkspace] = useState<workspace>(workspace.welcome);
   function getCurrentWorkspace() {
@@ -44,7 +46,9 @@ function App() {
       case workspace.linkedList:
         return <LinkedListWorkspace/>
       case workspace.factorial:
-        return <FactorialWorkspace/>
+        return <FactorialWorkspace />
+      case workspace.exceptions:
+        return <ExceptionsWorkspace />
       default:
         return <WelcomeWorkspace/>
     }
@@ -81,16 +85,28 @@ function App() {
             Linked List
           </Button>
           <Button
-            id="linkedList-workspace-button"
+            id="factorial-workspace-button"
             className={classes.standardSizedButton}
             color="primary"
             variant="contained"
             onClick={() => {
-              console.log("Changed to workspace: linkedList");
+              console.log("Changed to workspace: factorial");
               setCurrentWorkspace(workspace.factorial);
             }
             }>
             Factorial
+          </Button>
+          <Button
+            id="exceptions-workspace-button"
+            className={classes.standardSizedButton}
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              console.log("Changed to workspace: exceptions");
+              setCurrentWorkspace(workspace.exceptions);
+            }
+            }>
+            Exceptions
           </Button>
         </div>
         <div id="workspace" className={classes.workspaceContent}>
