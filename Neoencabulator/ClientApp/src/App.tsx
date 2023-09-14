@@ -5,6 +5,7 @@ import WelcomeWorkspace from './workspaces/WelcomeWorkspace'
 import LinkedListWorkspace from './workspaces/LinkedList/LinkedListWorkspace'
 import FactorialWorkspace from './workspaces/Factorial/FactorialWorkspace';
 import ExceptionsWorkspace from './workspaces/Exceptions/ExceptionsWorkspace';
+import SettingsTestingWorkspace from './workspaces/SettingsTesting/SettingsTestingWorkspace';
 
 const useStyles = makeStyles({
   titleBarButton: {
@@ -38,7 +39,8 @@ function App() {
     welcome,
     linkedList,
     factorial,
-    exceptions
+    exceptions,
+    settingsTesting
   }
   const [currentWorkspace, setCurrentWorkspace] = useState<workspace>(workspace.welcome);
   function getCurrentWorkspace() {
@@ -49,6 +51,8 @@ function App() {
         return <FactorialWorkspace />
       case workspace.exceptions:
         return <ExceptionsWorkspace />
+      case workspace.settingsTesting:
+        return <SettingsTestingWorkspace />
       default:
         return <WelcomeWorkspace/>
     }
@@ -107,6 +111,18 @@ function App() {
             }
             }>
             Exceptions
+          </Button>
+          <Button
+            id="settings-testing-workspace-button"
+            className={classes.standardSizedButton}
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              console.log("Changed to workspace: settingsTesting");
+              setCurrentWorkspace(workspace.settingsTesting);
+            }
+            }>
+            Settings Testing
           </Button>
         </div>
         <div id="workspace" className={classes.workspaceContent}>

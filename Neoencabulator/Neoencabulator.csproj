@@ -30,6 +30,7 @@
     <None Remove="ClientApp\src\workspaces\linkedListWorkspace.tsx" />
     <None Remove="ClientApp\src\workspaces\LinkedListWorkspaceOld.tsx" />
     <None Remove="ClientApp\src\workspaces\LinkedList\LinkedListNodeComponent.tsx" />
+    <None Remove="ClientApp\src\workspaces\SettingsTesting\SettingsTestingWorkspace.tsx" />
     <None Remove="ClientApp\src\workspaces\WelcomeWorkspace.tsx" />
   </ItemGroup>
 
