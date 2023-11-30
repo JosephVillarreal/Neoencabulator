@@ -2,11 +2,16 @@
 import React, { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 
+type SettingsTestTuple = {
+  returnA: string,
+  returnB: string,
+}
+
 function SettingsTestingWorkspace() {
-  function SubmitSettingsInputs(input: number) {
-    axios.get('SettingsInputs', { params: { input: input } })
+  function SubmitSettingsInputs(fristParam: string, secondParam: string) {
+    axios.get('SettingsTesting', { params: { inputA: fristParam, inputB: secondParam } })
       .then((response: any) => {
-        console.log(response);
+        console.log(response.data);
         setResult(response.data);
       })
       .catch(function (error: any) {
@@ -24,7 +29,7 @@ function SettingsTestingWorkspace() {
     <div>
       <Button color="primary" variant="contained" disabled={(number == undefined || number == null)}
         onClick={() => {
-          SubmitSettingsInputs(number);
+          SubmitSettingsInputs("1", "Seven");
         }}
       >
         Calculate
