@@ -18,9 +18,8 @@ namespace Neoencabulator.Controllers
     [HttpGet]
     public SettingsTestTuple Get(string inputA, string inputB)
     {
-      bool A = (inputA == inputB);
-      SettingsTestTuple returnValue = new SettingsTestTuple {returnA =  A.ToString(), returnB = inputB };
-      return returnValue;
+      (string resultA, string resultB) = SettingsTestingLogic.evaluateSettings(inputA, inputB);
+      return new SettingsTestTuple { returnA = resultA, returnB = resultB };      
     }
   }
 }

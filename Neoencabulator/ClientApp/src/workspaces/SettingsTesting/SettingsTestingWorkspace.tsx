@@ -6,7 +6,7 @@ type SettingsTestTuple = {
   returnA: string,
   returnB: string,
 }
-
+  
 function SettingsTestingWorkspace() {
   function SubmitSettingsInputs(fristParam: string, secondParam: string) {
     axios.get('SettingsTesting', { params: { inputA: fristParam, inputB: secondParam } })
@@ -22,17 +22,51 @@ function SettingsTestingWorkspace() {
       });
   }
 
-  const [result, setResult] = useState<number>();
-  const [number, setNumber] = useState<number>(1);
+  const [result, setResult] = useState<SettingsTestTuple>();
+  const [settingA, setSettingA] = useState<string>("1");
+  const handleChangeA = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSettingA(event.target.value as unknown as string);
+  };
+  const [settingB, setSettingB] = useState<string>("1");
+  const handleChangeB = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSettingB(event.target.value as unknown as string);
+  };
 
   return (
     <div>
-      <Button color="primary" variant="contained" disabled={(number == undefined || number == null)}
+      Direcitons: You will be writing test cases for these two settings boxes, to confirm that the system will function as specified.
+      <br />
+      <br />
+      <TextField
+        label="Setting A"
+        value={settingA}
+        onChange={handleChangeA}
+        size="small"
+      >
+      </TextField>
+      <div>
+        {" Range: 1 to 1000"}
+      </div>
+      <br />
+      <br />
+      <TextField
+        label="Setting B"
+        value={settingB}
+        onChange={handleChangeB}
+        size="small"
+      >
+      </TextField>
+      <div>
+        {" Range: 1 to the value of Setting A"}
+      </div>
+      <br />
+      <br />
+      <Button color="primary" variant="contained"
         onClick={() => {
-          SubmitSettingsInputs("1", "Seven");
+        SubmitSettingsInputs(settingA, settingB);
         }}
       >
-        Calculate
+        Submit
       </Button>
     </div>
   );
