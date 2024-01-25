@@ -4,7 +4,7 @@ namespace Neoencabulator.Logic
   {
     public static (string A, string B) evaluateSettings(string inputA, string inputB)
     {
-      return (inputA, inputB);
+      return ("error", inputB);
     }
   }
 }

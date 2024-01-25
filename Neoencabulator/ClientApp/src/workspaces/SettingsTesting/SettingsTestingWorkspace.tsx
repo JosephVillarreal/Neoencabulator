@@ -22,7 +22,7 @@ function SettingsTestingWorkspace() {
       });
   }
 
-  const [result, setResult] = useState<SettingsTestTuple>();
+  const [result, setResult] = useState<SettingsTestTuple>({returnA:"", returnB:""});
   const [settingA, setSettingA] = useState<string>("1");
   const handleChangeA = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSettingA(event.target.value as unknown as string);
@@ -41,6 +41,7 @@ function SettingsTestingWorkspace() {
         label="Setting A"
         value={settingA}
         onChange={handleChangeA}
+        error={result.returnA === "error" ? true : false}
         size="small"
       >
       </TextField>
@@ -53,6 +54,7 @@ function SettingsTestingWorkspace() {
         label="Setting B"
         value={settingB}
         onChange={handleChangeB}
+        error={result.returnB === "error" ? true : false}
         size="small"
       >
       </TextField>
