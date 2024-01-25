@@ -11,10 +11,10 @@ namespace Neoencabulator.Logic
       string returnB = "error";
       float parsedA = float.NaN;
 
-      if (float.TryParse(inputA, out parsedA) && (parsedA > 0 && parsedA < 1000))
+      if (float.TryParse(inputA, out parsedA) && (parsedA >= 0 && parsedA <= 1000))
       {
         returnA = "true";
-        if (float.TryParse(inputB, out float parsedB) && (parsedB > 0 && parsedB < parsedA))
+        if (float.TryParse(inputB, out float parsedB) && (parsedB >= 0 && parsedB <= parsedA))
         {
             returnB = "true";
         }
