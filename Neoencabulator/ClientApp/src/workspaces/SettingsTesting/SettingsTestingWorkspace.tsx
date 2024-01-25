@@ -41,7 +41,7 @@ function SettingsTestingWorkspace() {
         label="Setting A"
         value={settingA}
         onChange={handleChangeA}
-        error={result.returnA === "error" ? true : false}
+        error={result.returnA === "error"}
         size="small"
       >
       </TextField>
@@ -54,7 +54,7 @@ function SettingsTestingWorkspace() {
         label="Setting B"
         value={settingB}
         onChange={handleChangeB}
-        error={result.returnB === "error" ? true : false}
+        error={result.returnB === "error"}
         size="small"
       >
       </TextField>
