@@ -1,6 +1,7 @@
 ﻿import axios from 'axios';
 import React, { useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Snackbar } from '@mui/material';
+
 
 type SettingsTestTuple = {
   returnA: string,
@@ -13,6 +14,9 @@ function SettingsTestingWorkspace() {
       .then((response: any) => {
         console.log(response.data);
         setResult(response.data);
+        if (response.data.returnA !== "error" && response.data.returnA !== "error") {
+          setShowSnackBar(true);
+        }
       })
       .catch(function (error: any) {
         console.log(error);
@@ -31,9 +35,23 @@ function SettingsTestingWorkspace() {
   const handleChangeB = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSettingB(event.target.value as unknown as string);
   };
+  const [showSnackBar, setShowSnackBar] = React.useState(false);
+  const closeSnackBar = (event: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setShowSnackBar(false);
+  };
 
   return (
     <div>
+      <Snackbar
+        open={showSnackBar}
+        autoHideDuration={3000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+        onClose={closeSnackBar}
+        message="Settings are valid!"
+      />
       Direcitons: You will be writing test cases for these two settings boxes, to confirm that the system will function as specified.
       <br />
       <br />
@@ -65,7 +83,7 @@ function SettingsTestingWorkspace() {
       <br />
       <Button color="primary" variant="contained"
         onClick={() => {
-        SubmitSettingsInputs(settingA, settingB);
+          SubmitSettingsInputs(settingA, settingB);
         }}
       >
         Submit
