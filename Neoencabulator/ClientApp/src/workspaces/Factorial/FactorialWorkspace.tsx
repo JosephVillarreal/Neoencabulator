@@ -41,7 +41,7 @@ function FactorialWorkspace() {
       </TextField>
       <br />
       <br />
-      {"Result: " + (result == undefined ? "" : result)}
+      {"Result: " + (result === undefined ? "" : result)}
     </div>
   );
 }

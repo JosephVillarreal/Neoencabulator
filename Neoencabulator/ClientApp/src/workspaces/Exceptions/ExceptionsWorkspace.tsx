@@ -103,10 +103,11 @@ int bar(int i) {
 
   return (
     <div>
-      <div>
+      <div id="exceptions-buttons">
         <Button color="primary" variant="contained"
           onClick={() => {
             setExceptionQuestion(1);
+            setResult("");
           }}
         >
           1st Exception
@@ -114,6 +115,7 @@ int bar(int i) {
         <Button color="primary" variant="contained"
           onClick={() => {
             setExceptionQuestion(2);
+            setResult("");
           }}
         >
           2nd Exception
@@ -121,6 +123,7 @@ int bar(int i) {
         <Button color="primary" variant="contained"
           onClick={() => {
             setExceptionQuestion(3);
+            setResult("");
           }}
         >
           3rd Exception

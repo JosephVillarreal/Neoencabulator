@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Neoencabulator.Logic;
 using Neoencabulator.Logic.ExceptionsLogic;
 using System;
 
