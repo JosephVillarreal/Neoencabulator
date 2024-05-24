@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Button, TextField, Snackbar } from '@mui/material';
 
-
 type SettingsTestTuple = {
   returnA: string,
   returnB: string,
@@ -14,7 +13,7 @@ function SettingsTestingWorkspace() {
       .then((response: any) => {
         console.log(response.data);
         setResult(response.data);
-        if (response.data.returnA !== "error" && response.data.returnA !== "error") {
+        if (response.data.returnA !== "error" && response.data.returnB !== "error") {
           setShowSnackBar(true);
         }
       })
